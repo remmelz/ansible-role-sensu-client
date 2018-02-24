@@ -1,0 +1,19 @@
+{
+  "client": {
+
+    "name": "{{ ansible_nodename }}",
+    "address": "{{ ansible_default_ipv4.address }}",
+
+    "environment": "development",
+
+    "subscriptions": [
+      "linux"
+    ],
+    "socket": {
+      "bind": "127.0.0.1",
+      "port": 3030
+    }
+  }
+}
+
+ 

@@ -1,0 +1,22 @@
+
+---
+
+  - name: Checking file sensu rpm
+    stat:
+      path: /var/tmp/{{ rpm_sensu }}
+    register: result
+
+  - name: Downloading sensu rpm file
+    get_url:
+      url: "{{ repo_sensu }}/{{ rpm_sensu }}"
+      dest: /var/tmp/
+      mode: 0440
+    when: result.stat.exists == False
+
+  - name: Installing the sensu rpm file
+    zypper:
+      name: /var/tmp/{{ rpm_sensu }}
+      disable_gpg_check: yes
+      state: present
+
+

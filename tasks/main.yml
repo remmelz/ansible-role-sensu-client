@@ -1,0 +1,8 @@
+
+---
+
+  - import_tasks: "sensu-client.yml"
+  - import_tasks: "sensu-plugins.yml"
+  - import_tasks: "sensu-configure.yml"
+
+
