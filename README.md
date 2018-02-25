@@ -1,4 +1,4 @@
-##ansible-role-sensu-client
+## ansible-role-sensu-client
 
 Ansible playbook for installing Sensu Client
 
