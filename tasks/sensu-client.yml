@@ -19,4 +19,14 @@
       disable_gpg_check: yes
       state: present
 
+  - name: Copying systemd service files
+    copy:
+      src: "{{ item }}"
+      dest: /lib/systemd/system/
+      owner: root
+      group: root
+      mode: 0640
+    with_fileglob:
+      - ./templates/systemd/*.service
+
 
