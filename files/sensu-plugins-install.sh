@@ -25,14 +25,7 @@ mkdir ${temp_dir}
 cd ${temp_dir} || exit 1
 
 git clone https://github.com/djberg96/sys-filesystem.git
-cd sys-filesystem/lib || exit 1
-cp -Rv * ${lib_dir} && cd ${temp_dir}
-
 git clone https://github.com/sensu-plugins/sensu-plugins-load-checks
-cd sensu-plugins-load-checks/lib || exit 1
-cp -Rv * ${lib_dir} && cd ${temp_dir}
-ln -s ${lib_dir} /opt/sensu/lib
-
 git clone https://github.com/sensu-plugins/sensu-plugins-memory-checks.git
 git clone https://github.com/sensu-plugins/sensu-plugins-filesystem-checks.git
 git clone https://github.com/sensu-plugins/sensu-plugins-process-checks.git
@@ -42,9 +35,26 @@ git clone https://github.com/sensu-plugins/sensu-plugins-disk-checks
 git clone https://github.com/sensu-plugins/sensu-plugins-cpu-checks
 git clone https://github.com/sensu-plugins/sensu-plugins-selinux
 git clone https://github.com/sensu-plugins/sensu-plugins-execute
+git clone https://github.com/sensu-plugins/sensu-plugins-network-checks
+git clone https://github.com/sensu-plugins/sensu-plugins-chrony
+git clone https://github.com/sensu-plugins/sensu-plugins-uptime-checks
+git clone https://github.com/sensu-plugins/sensu-plugins-systemd
+git clone https://github.com/sensu-plugins/sensu-plugins-lvm
 
 ###############################################
-# Copying plugins
+# Copying libraries
+###############################################
+
+ln -s ${lib_dir} /opt/sensu/lib
+
+cd sys-filesystem/lib || exit 1
+cp -Rv * ${lib_dir}; cd ${temp_dir}
+
+cd sensu-plugins-load-checks/lib || exit 1
+cp -Rv * ${lib_dir}; cd ${temp_dir}
+
+###############################################
+# Installing plugins
 ###############################################
 
 mkdir -p ${plugin_dir}

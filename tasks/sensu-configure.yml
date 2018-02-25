@@ -12,6 +12,17 @@
       - ./templates/*.j2
     notify: Restart Sensu client
 
+  - name: Checking for sensu server
+    stat:
+      path: /etc/sensu/uchiwa.json
+    register: result
+
+  - name: Removing rabbitmq config file
+    file:
+      path: /etc/sensu/conf.d/rabbitmq.json
+      state: absent
+    when: result.stat.exists == True
+
   - name: Starting sensu client
     systemd:
       name: sensu-client
