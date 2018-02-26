@@ -1,0 +1,14 @@
+
+---
+
+  - name: Installing Git on RedHat
+    yum:
+      name: git
+      state: present
+
+  - name: Installing the Sensu RPM file on RedHat
+    yum:
+      name: /var/tmp/{{ rpm_sensu }}
+      disable_gpg_check: yes
+      state: present
+

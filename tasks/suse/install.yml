@@ -1,0 +1,24 @@
+
+---
+
+  - name: Installing Git on SuSE
+    zypper:
+      name: git
+      state: present
+
+  - name: Installing the Sensu RPM file
+    zypper:
+      name: /var/tmp/{{ rpm_sensu }}
+      disable_gpg_check: yes
+      state: present
+
+  - name: Copying systemd service files
+    template:
+      src: "{{ item }}"
+      dest: /lib/systemd/system/{{ item | basename | regex_replace('\.j2','') }}
+      owner: root
+      group: root
+      mode: 0640
+    with_fileglob:
+      - ./templates/systemd/*.service
+

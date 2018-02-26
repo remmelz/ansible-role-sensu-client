@@ -1,0 +1,11 @@
+
+---
+
+  - name: Copying Sensu plugin installation script
+    copy:
+      src: ./files/{{ plugin_script }}
+      dest: /var/tmp/
+      mode: 0755
+
+  - name: Executing the Sensu plugin installation script
+    shell: /var/tmp/{{ plugin_script }}

@@ -1,8 +1,17 @@
 
 ---
 
-  - import_tasks: "sensu-client.yml"
-  - import_tasks: "sensu-plugins.yml"
-  - import_tasks: "sensu-configure.yml"
+  - import_tasks: "download.yml"
+
+  - name: Installing Sensu on SuSE
+    import_tasks: ./suse/install.yml
+    when: ansible_os_family|lower == 'suse'
+
+  - name: Installing Sensu on RedHat
+    import_tasks: ./redhat/install.yml
+    when: ansible_os_family|lower == 'redhat'
+
+  - import_tasks: "plugins.yml"
+  - import_tasks: "configure.yml"
 
 

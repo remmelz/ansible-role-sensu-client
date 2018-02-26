@@ -1,0 +1,20 @@
+
+---
+
+  - name: Checking for existing Sensu RPM file
+    stat:
+      path: /var/tmp/{{ rpm_sensu }}
+    register: result
+
+  - name: Downloading the Sensu RPM file
+    get_url:
+      url: "{{ repo_sensu }}/{{ rpm_sensu }}"
+      dest: /var/tmp/
+      mode: 0440
+    when: result.stat.exists == False
+
+
+
+
+
+
