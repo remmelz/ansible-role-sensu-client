@@ -24,6 +24,7 @@
       group: sensu
       mode: 0640
     when: '"active (running)" not in result.stdout'
+    notify: Restarting the Sensu client
 
   - name: Starting the Sensu client
     systemd:
