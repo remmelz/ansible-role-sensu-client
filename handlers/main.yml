@@ -1,6 +1,6 @@
 ---
 
-  - name: Restart Sensu client
+  - name: Restarting the Sensu client
     service:
       name: sensu-client
       state: restarted

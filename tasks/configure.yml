@@ -1,27 +1,29 @@
 
 ---
 
-  - name: Copying Sensu configuration files
+  - name: Copying Sensu configuration file
     template:
-      src: "{{ item }}"
-      dest: /etc/sensu/conf.d/{{ item | basename | regex_replace('\.j2','') }}
+      src: ./templates/client.json.j2
+      dest: /etc/sensu/conf.d/client.json
       owner: sensu
       group: sensu
       mode: 0640
-    with_fileglob:
-      - ./templates/*.j2
-    notify: Restart Sensu client
+    notify: Restarting the Sensu client
 
-  - name: Checking if this host is a Sensu server
-    stat:
-      path: /etc/sensu/uchiwa.json
+  - name: Checking if host is Sensu server
+    shell: systemctl status sensu-server
+    failed_when: ( result.rc not in [ 0, 3 ] )
+    ignore_errors: yes
     register: result
 
-  - name: Removing rabbitmq config file if this is a Sensu server
-    file:
-      path: /etc/sensu/conf.d/rabbitmq.json
-      state: absent
-    when: result.stat.exists == True
+  - name: Copying RabbitMQ configuration file
+    template:
+      src: ./templates/rabbitmq.json.j2
+      dest: /etc/sensu/conf.d/rabbitmq.json
+      owner: sensu
+      group: sensu
+      mode: 0640
+    when: '"active (running)" not in result.stdout'
 
   - name: Starting the Sensu client
     systemd:

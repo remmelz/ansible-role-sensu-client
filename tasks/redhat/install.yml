@@ -1,10 +1,14 @@
 
 ---
 
-  - name: Installing Git on RedHat
+  - name: Installing required packages on RedHat
     yum:
-      name: git
-      state: present
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - git
+      - nss
+      - curl
 
   - name: Installing the Sensu RPM file on RedHat
     yum:
