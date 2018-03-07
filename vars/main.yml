@@ -4,5 +4,5 @@
   repo_sensu    : "https://repositories.sensuapp.org/yum/7/x86_64"
   repo_uchiwa   : "http://dl.bintray.com/palourde/uchiwa"
 
-  plugin_script : "sensu-plugins-install.sh"
+  plugin_script : "sensu-plugins-community-install.sh"
 

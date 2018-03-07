@@ -1,7 +1,7 @@
 
 ---
 
-  - name: Copying Sensu plugin installation script
+  - name: Copying Sensu plugin community installation script
     copy:
       src: ./files/{{ plugin_script }}
       dest: /var/tmp/
@@ -9,3 +9,15 @@
 
   - name: Executing the Sensu plugin installation script
     shell: /var/tmp/{{ plugin_script }}
+
+  - name: Copying custom Sensu plugins files
+    template:
+      src: '{{ item.src }}'
+      dest: "/opt/sensu/plugins/{{ item.path }}"
+      owner: root
+      group: root
+      mode: 0755
+    with_filetree: ./files/sensu-plugins
+    when: item.state == 'file' 
+
+

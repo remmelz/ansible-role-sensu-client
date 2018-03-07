@@ -1,7 +1,7 @@
 
 
 - name: Deploying a sensu client
-  hosts: sensu-clients
+  hosts: testing
 
   roles:
     - ansible-role-sensu-client
