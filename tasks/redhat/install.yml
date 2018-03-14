@@ -9,6 +9,7 @@
       - git
       - nss
       - curl
+      - sysstat
 
   - name: Installing the Sensu RPM file on RedHat
     yum:

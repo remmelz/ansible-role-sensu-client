@@ -26,6 +26,12 @@
     when: '"active (running)" not in result.stdout'
     notify: Restarting the Sensu client
 
+  - name: Starting the Sysstat daemon
+    systemd:
+      name: sysstat
+      state: started
+      enabled: yes
+
   - name: Starting the Sensu client
     systemd:
       name: sensu-client

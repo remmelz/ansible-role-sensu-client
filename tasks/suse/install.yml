@@ -1,10 +1,13 @@
 
 ---
 
-  - name: Installing Git on SuSE
+  - name: Installing required packages on SuSE
     zypper:
-      name: git
-      state: present
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - git
+      - sysstat
 
   - name: Installing the Sensu RPM file
     zypper:
